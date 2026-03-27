@@ -22,7 +22,17 @@ This boilerplate enforces a strict, loosely-coupled 3-layer architecture (Routes
 This project uses `swagger-jsdoc` and `swagger-ui-express` for API documentation. 
 The Swagger UI is mounted at `http://localhost:<PORT>/api-docs`.
 
-**🚨 CRITICAL RULE:** You **MUST** keep the Swagger documentation updated. Always update the inline JSDoc `@swagger` comments in the `src/routes/` files immediately after creating or modifying any feature or endpoint. Consistency is key to a maintainable enterprise application.
+**Production Security:** When `NODE_ENV=production`, visiting `/api-docs` will prompt for a username and password (configured in `.env` as `SWAGGER_USER` and `SWAGGER_PASSWORD`).
+
+### 🚀 Auto-Generating Documentation
+**🚨 CRITICAL RULE:** You **MUST** keep the Swagger documentation updated whenever you create or modify an endpoint. 
+To make this effortless, this boilerplate includes a custom CLI generator. Instead of hand-writing YAML, simply run:
+
+```bash
+npm run generate:docs
+```
+
+The interactive script will ask for your endpoint details and allow you to paste your exact JSON payloads. It automatically reverse-engineers the JSON into a flawless OpenAPI Schema and saves it immediately to a new decoupled file in the `src/docs/` directory, keeping your routing files perfectly pristine.
 
 
 ## Getting Started

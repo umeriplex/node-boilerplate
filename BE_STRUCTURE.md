@@ -4,8 +4,10 @@ This document briefly describes the purpose of each directory and key files. Thi
 
 ## Directory Overview
 
--   `src/config/`: System definitions (Database connection, Environment variables, Logging).
+-   `scripts/`: Custom CLI tools and utilities (e.g., Swagger Auto-Generator).
+-   `src/config/`: System definitions (Database connection, Environment variables, Logging, Swagger Setup).
 -   `src/controllers/`: HTTP Layer. Extracts data from requests and triggers services. **NO business logic here.**
+-   `src/docs/`: Centralized OpenAPI/Swagger documentation `.docs.ts` files automatically scanned on boot.
 -   `src/middlewares/`: Express middlewares (Authentication, Request Validation, Error Handling).
 -   `src/models/`: Mongoose Database Models / Schemas.
 -   `src/routes/`: Express routers. Binds paths to validation schemas and controllers.
@@ -46,7 +48,11 @@ This document briefly describes the purpose of each directory and key files. Thi
 
 -   `index.ts`: The main router aggregator. Mounts feature routes (e.g., `/api/v1/auth`).
 -   `authRoutes.ts`: Maps endpoints like `POST /login` -> `authLimiter` -> `validate(loginSchema)` -> `authController.login`.
-    > **Note on Swagger:** All route files MUST contain JSDoc `@swagger` blocks above each endpoint definition. Whenever you add or modify a route, you are strictly required to update its corresponding Swagger block here.
+
+### docs/ & scripts/
+
+-   `src/docs/`: Rather than bloating route files with massive YAML comments, all Swagger `@swagger` blocks are stored here in `.docs.ts` sidecar files.
+-   `scripts/generate-swagger.ts`: Run `npm run generate:docs` to automatically parse raw JSON payloads and inject the flawless OpenAPI schema natively into the `src/docs/` directory.
 
 ### services/
 
