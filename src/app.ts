@@ -5,6 +5,9 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import env from './config/env';
 import logger from './config/logger';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger';
+import basicAuth from 'express-basic-auth';
 import { errorHandler } from './middlewares/errorHandler';
 import { apiLimiter } from './middlewares/rateLimiter';
 import { NotFoundError } from './utils/AppError';
@@ -36,6 +39,22 @@ app.use('/api', apiLimiter);
 // Body parser
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
+// Swagger Documentation
+if (env.NODE_ENV === 'production') {
+  app.use(
+    '/api-docs',
+    basicAuth({
+      users: { [env.SWAGGER_USER]: env.SWAGGER_PASSWORD },
+      challenge: true,
+      unauthorizedResponse: 'Unauthorized Access',
+    }),
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec)
+  );
+} else {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}
 
 // Base API Routes
 app.use('/api/v1', routes);

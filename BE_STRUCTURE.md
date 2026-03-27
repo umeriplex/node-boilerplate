@@ -46,6 +46,7 @@ This document briefly describes the purpose of each directory and key files. Thi
 
 -   `index.ts`: The main router aggregator. Mounts feature routes (e.g., `/api/v1/auth`).
 -   `authRoutes.ts`: Maps endpoints like `POST /login` -> `authLimiter` -> `validate(loginSchema)` -> `authController.login`.
+    > **Note on Swagger:** All route files MUST contain JSDoc `@swagger` blocks above each endpoint definition. Whenever you add or modify a route, you are strictly required to update its corresponding Swagger block here.
 
 ### services/
 

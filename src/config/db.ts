@@ -6,16 +6,15 @@ export const connectDB = async (): Promise<void> => {
   try {
     const conn = await mongoose.connect(env.MONGO_URI);
     logger.info(`MongoDB Connected: ${conn.connection.host}`);
-    
+
     // Auto-reconnect listeners
     mongoose.connection.on('disconnected', () => {
       logger.warn('MongoDB disconnected. Retrying...');
     });
-    
+
     mongoose.connection.on('error', (err) => {
       logger.error('MongoDB connection error:', err);
     });
-
   } catch (error: any) {
     logger.error(`Error connecting to MongoDB: ${error.message}`);
     process.exit(1);

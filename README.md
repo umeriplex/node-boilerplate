@@ -18,6 +18,13 @@ This boilerplate enforces a strict, loosely-coupled 3-layer architecture (Routes
 **For a detailed breakdown of the exact folder structure, design patterns, and every file's purpose, please see the [BE_STRUCTURE.md](./BE_STRUCTURE.md) file.**
 
 
+## API Documentation (Swagger)
+This project uses `swagger-jsdoc` and `swagger-ui-express` for API documentation. 
+The Swagger UI is mounted at `http://localhost:<PORT>/api-docs`.
+
+**🚨 CRITICAL RULE:** You **MUST** keep the Swagger documentation updated. Always update the inline JSDoc `@swagger` comments in the `src/routes/` files immediately after creating or modifying any feature or endpoint. Consistency is key to a maintainable enterprise application.
+
+
 ## Getting Started
 
 1.  **Clone / Copy this directory**

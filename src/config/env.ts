@@ -12,6 +12,8 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(32, 'JWT_SECRET must be at least 32 characters long for security.'),
   JWT_EXPIRES_IN: z.string().default('7d'),
   ALLOWED_ORIGINS: z.string().transform((str) => str.split(',')),
+  SWAGGER_USER: z.string().default('admin'),
+  SWAGGER_PASSWORD: z.string().default('supersecret'),
 });
 
 const parseEnv = () => {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { verifyToken, TokenPayload } from '../utils/jwt';
+import { verifyToken } from '../utils/jwt';
 import { UnauthorizedError, ForbiddenError } from '../utils/AppError';
 import { catchAsync } from '../utils/catchAsync';
 import User from '../models/User';

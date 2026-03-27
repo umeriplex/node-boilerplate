@@ -1,4 +1,4 @@
-import User, { IUser } from '../models/User';
+import User from '../models/User';
 import { UnauthorizedError, BadRequestError } from '../utils/AppError';
 import { signToken } from '../utils/jwt';
 
@@ -39,7 +39,7 @@ export const loginUser = async (credentials: any) => {
 
   // 2) Check if user exists && password is correct
   const user = await User.findOne({ email }).select('+password');
-  
+
   if (!user || !(await user.matchPassword(password))) {
     throw new UnauthorizedError('Incorrect email or password');
   }

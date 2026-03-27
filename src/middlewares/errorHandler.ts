@@ -53,10 +53,13 @@ const handleValidationErrorDB = (err: any) => {
 
 const handleJWTError = () => new AppError('Invalid token. Please log in again!', 401);
 
-const handleJWTExpiredError = () => new AppError('Your token has expired! Please log in again.', 401);
+const handleJWTExpiredError = () =>
+  new AppError('Your token has expired! Please log in again.', 401);
 
 const sendErrorDev = (err: any, req: Request, res: Response) => {
-  logger.error(`[DEV ERROR] ${req.method} ${req.originalUrl}: ${err.message}`, { stack: err.stack });
+  logger.error(`[DEV ERROR] ${req.method} ${req.originalUrl}: ${err.message}`, {
+    stack: err.stack,
+  });
 
   res.status(err.statusCode).json({
     status: err.status,

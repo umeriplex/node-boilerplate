@@ -20,7 +20,7 @@ export const validate = (schema: AnyZodObject) => {
           field: err.path.join('.'),
           message: err.message,
         }));
-        
+
         return sendError(res, 400, 'Validation failed', errors);
       }
       next(error);
