@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
 import { UnauthorizedError, ForbiddenError } from '../utils/AppError';
 import { catchAsync } from '../utils/catchAsync';
-import User from '../models/User';
+import User, { IUser } from '../models/User';
 
 export interface AuthRequest extends Request {
-  user?: any; // Replace with actual UI/DB Types
+  user?: IUser; // Replace with actual UI/DB Types
 }
 
 /**

@@ -9,7 +9,7 @@ interface SuccessResponseFormat<T> {
 interface ErrorResponseFormat {
   status: 'error';
   message: string;
-  error?: any;
+  error?: unknown;
 }
 
 /**
@@ -35,7 +35,7 @@ export const sendError = (
   res: Response,
   statusCode: number,
   message: string,
-  error?: any
+  error?: unknown
 ): Response<ErrorResponseFormat> => {
   const payload: ErrorResponseFormat = {
     status: 'error',

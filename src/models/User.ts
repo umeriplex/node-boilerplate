@@ -71,7 +71,7 @@ userSchema.methods.matchPassword = async function (enteredPassword: string): Pro
 };
 
 // Filter out inactive users automatically inside query
-userSchema.pre(/^find/, function (this: any, next) {
+userSchema.pre(/^find/, function (this: mongoose.Query<IUser, IUser>, next) {
   this.find({ isActive: { $ne: false } });
   next();
 });

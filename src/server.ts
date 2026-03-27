@@ -17,9 +17,14 @@ const server = app.listen(PORT, () => {
   logger.info(`✨ Server running in ${env.NODE_ENV} mode on port ${PORT}`);
 });
 
-process.on('unhandledRejection', (err: any) => {
+process.on('unhandledRejection', (err: unknown) => {
+  const error = err instanceof Error ? err : undefined;
   logger.error('UNHANDLED REJECTION! 💥 System recovered.');
-  logger.error(err?.name, err?.message, err?.stack);
+  if (error) {
+    logger.error(error.name || 'Error', error.message, error.stack);
+  } else {
+    logger.error('Unknown rejection', { err });
+  }
   // Server is instructed to keep alive
 });
 

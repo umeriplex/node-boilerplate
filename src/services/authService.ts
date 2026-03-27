@@ -2,7 +2,12 @@ import User from '../models/User';
 import { UnauthorizedError, BadRequestError } from '../utils/AppError';
 import { signToken } from '../utils/jwt';
 
-export const registerUser = async (userData: any) => {
+export const registerUser = async (userData: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}) => {
   const existingUser = await User.findOne({ email: userData.email });
   if (existingUser) {
     throw new BadRequestError('Email already in use');
@@ -29,7 +34,7 @@ export const registerUser = async (userData: any) => {
   };
 };
 
-export const loginUser = async (credentials: any) => {
+export const loginUser = async (credentials: { email: string; password: string }) => {
   const { email, password } = credentials;
 
   // 1) Check if email and password exist
